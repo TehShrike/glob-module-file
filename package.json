@@ -1,0 +1,32 @@
+{
+  "name": "glob-module-file",
+  "version": "1.0.0",
+  "description": "Generate a file of code that imports/requires a bunch of files, and exports them as an array",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TehShrike/glob-module-file.git"
+  },
+  "keywords": [
+    "glob",
+    "require",
+    "import",
+    "file",
+    "entry",
+    "point",
+    "browserify",
+    "rollup",
+    "bundler",
+    "export",
+    "module"
+  ],
+  "author": "TehShrike",
+  "license": "WTFPL",
+  "bugs": {
+    "url": "https://github.com/TehShrike/glob-module-file/issues"
+  },
+  "homepage": "https://github.com/TehShrike/glob-module-file#readme"
+}
