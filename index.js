@@ -9,6 +9,7 @@ const sortByDirectoryDepth = require('./sort-by-directory-depth')
 module.exports = function globModuleFile({
 	format = 'cjs',
 	sortFunction = sortByDirectoryDepth,
+	pathPrefix = './',
 	pattern,
 	outputPath
 }, globOptions) {
@@ -25,7 +26,7 @@ module.exports = function globModuleFile({
 			identifier: sortedFiles.map(toIdentifier)
 		})
 
-		const code = outputFormat(fileNamesAndIdentifiers)
+		const code = outputFormat(fileNamesAndIdentifiers, pathPrefix)
 
 		if (outputPath) {
 			return writeFile(outputPath, code).then(() => code)
@@ -36,10 +37,10 @@ module.exports = function globModuleFile({
 }
 
 const formats = {
-	cjs(fileNamesAndIdentifiers) {
+	cjs(fileNamesAndIdentifiers, pathPrefix) {
 		const outputLines = fileNamesAndIdentifiers.map(({ file, identifier }) => {
 			return {
-				requireLine: `const ${identifier} = require('./${file}')`,
+				requireLine: `const ${identifier} = require('${pathPrefix}${file}')`,
 				exportLine: `\t${identifier}`
 			}
 		})
@@ -54,10 +55,10 @@ ${exported}
 ]
 `
 	},
-	es(fileNamesAndIdentifiers) {
+	es(fileNamesAndIdentifiers, pathPrefix) {
 		const outputLines = fileNamesAndIdentifiers.map(({ file, identifier }) => {
 			return {
-				requireLine: `import ${identifier} from './${file}'`,
+				requireLine: `import ${identifier} from '${pathPrefix}${file}'`,
 				exportLine: `\t${identifier}`
 			}
 		})

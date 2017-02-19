@@ -78,3 +78,16 @@ module.exports = [
 `)
 	})
 })
+
+test(`Custom path prefix`, t => {
+	return globModuleFile({ pattern: '**/*.js', pathPrefix: '/wat/' }, { cwd: 'fixtures' }).then(code => {
+		t.is(code, `const one$46$js = require('/wat/one.js')
+const someDirectory$47$two$46$js = require('/wat/someDirectory/two.js')
+
+module.exports = [
+	one$46$js,
+	someDirectory$47$two$46$js
+]
+`)
+	})
+})
