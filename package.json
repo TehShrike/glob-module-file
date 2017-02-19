@@ -4,7 +4,7 @@
   "description": "Generate a file of code that imports/requires a bunch of files, and exports them as an array",
   "main": "index.js",
   "scripts": {
-    "test": "tape test.js"
+    "test": "ava && jsmd readme.md"
   },
   "repository": {
     "type": "git",
@@ -28,5 +28,16 @@
   "bugs": {
     "url": "https://github.com/TehShrike/glob-module-file/issues"
   },
-  "homepage": "https://github.com/TehShrike/glob-module-file#readme"
+  "homepage": "https://github.com/TehShrike/glob-module-file#readme",
+  "devDependencies": {
+    "ava": "0.18.2",
+    "jsmd": "0.3.1",
+    "tempfile": "1.1.1"
+  },
+  "dependencies": {
+    "combine-arrays": "1.0.2",
+    "glob": "7.1.1",
+    "then-denodeify": "1.0.1",
+    "to-js-identifier": "1.0.0"
+  }
 }
