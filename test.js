@@ -91,3 +91,18 @@ module.exports = [
 `)
 	})
 })
+
+test(`Node can actually import the CommonJS output`, t => {
+	const tmp = tempfile()
+	return globModuleFile({
+		pattern: 'fixtures/**/*.js',
+		outputPath: tmp,
+		pathPrefix: process.cwd() + '/'
+	}).then(code => {
+
+		const moduleArray = require(tmp)
+
+		t.is(moduleArray[0], 1)
+		t.is(moduleArray[1], 2)
+	})
+})
