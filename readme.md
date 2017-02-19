@@ -37,7 +37,7 @@ Bundlers must be able to tell which files will be loaded by reading the code, wi
 
 So, you're back to maintaining a long list imports/requires somewhere.  Unless you use this library.
 
-## Example
+## What does it do?
 
 Given these files:
 
