@@ -26,7 +26,6 @@ glob.sync('service/**/*.js', { ignore: 'service/**/*.test.js' })
 	moduleFunction(initialConfig)
 })
 ```
-***
 
 It finds all the js files in a part of the application's directory tree, `require`s them, and then runs them as a function passing in some initial options.
 
