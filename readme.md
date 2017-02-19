@@ -126,8 +126,12 @@ globModuleFiles({ pattern: 'fixtures/**/*.js', outputPath: '/tmp/globbed.js' }).
 ## CLI
 
 ```sh
-glob-module-file "fixtures/**/*.js" ./globbed.js
+glob-module-file "fixtures/**/*.js" es
 ```
+
+Takes two arguments - the first is the pattern, the second is the (optional) module format.
+
+Spits the code to stdout so you can pipe it into a file or what have you.
 
 ## License
 

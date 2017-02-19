@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Generate a file of code that imports/requires a bunch of files, and exports them as an array",
   "main": "index.js",
+  "bin": "./bin.js",
   "scripts": {
     "test": "ava && jsmd readme.md"
   },
