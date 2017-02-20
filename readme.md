@@ -92,6 +92,7 @@ If an `outputPath` is provided, the promise will not resolve until after the fil
 - `outputPath`: A file to be created or overwritten with all of the import code.
 - `format`: Specify the module output - either the string `es` (import/export) or `cjs` (require/module.exports).  Defaults to `cjs`
 - `sortFunction`: A comparison function to be passed to [`Array.sort`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort) to determine the order to import the files in (and determine their order in the output array).  Defaults to a function that orders by how deep in the directory structure the file is (shallowest to deepest).
+- `pathPrefix`: A string to be prepended to the paths passed to `require`.  Defaults to `./`
 
 #### `globOptions`
 
