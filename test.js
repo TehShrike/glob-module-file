@@ -106,3 +106,9 @@ test(`Node can actually import the CommonJS output`, t => {
 		t.is(moduleArray[1], 2)
 	})
 })
+
+test(`Pattern array from CLI multiple --pattern entries`, t => {
+	return globModuleFile({ pattern: [ 'fixtures/*.js', 'fixtures/someDirectory/*.js' ] }).then(code => {
+		t.is(code, defaultExpectedCjsCode)
+	})
+})
