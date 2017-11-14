@@ -90,6 +90,7 @@ If an `outputPath` is provided, the promise will not resolve until after the fil
 
 - `pattern`: *(required)*: Passed to [glob](https://www.npmjs.com/package/glob).
 - `outputPath`: A file to be created or overwritten with all of the import code.
+- `exportWithPath`:  If false, exports whatever value was imported from the original file.  If true, exports an object `{ path: thePathStringThatWasImported, export: theObjectExportedFromTheGlobbedFile }`.  Defaults to `false`.
 - `format`: Specify the module output - either the string `es` (import/export) or `cjs` (require/module.exports).  Defaults to `cjs`
 - `sortFunction`: A comparison function to be passed to [`Array.sort`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort) to determine the order to import the files in (and determine their order in the output array).  Defaults to a function that orders by how deep in the directory structure the file is (shallowest to deepest).
 

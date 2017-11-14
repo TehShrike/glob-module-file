@@ -5,17 +5,23 @@ const toIdentifier = require('to-js-identifier')
 const combine = require('combine-arrays')
 
 const sortByDirectoryDepth = require('./sort-by-directory-depth')
+const escapeSingleQuotes = str => str.replace(`'`, () => `\\'`)
 
 module.exports = function globModuleFile({
 	format = 'cjs',
 	sortFunction = sortByDirectoryDepth,
 	pathPrefix = './',
+	exportWithPath = false,
 	pattern,
-	outputPath
+	outputPath,
 }, globOptions) {
 	if (!formats.hasOwnProperty(format)) {
 		throw new Error(`Invalid format ${format}`)
 	}
+
+	const exportLineFormat = exportWithPath
+		? exportWithPathObjectFormat
+		: defaultExportObjectFormat
 
 	const outputFormat = formats[format]
 
@@ -23,10 +29,10 @@ module.exports = function globModuleFile({
 		const sortedFiles = files.sort(sortFunction)
 		const fileNamesAndIdentifiers = combine({
 			file: sortedFiles,
-			identifier: sortedFiles.map(toIdentifier)
+			identifier: sortedFiles.map(toIdentifier),
 		})
 
-		const code = outputFormat(fileNamesAndIdentifiers, pathPrefix)
+		const code = outputFormat({ fileNamesAndIdentifiers, pathPrefix, exportLineFormat })
 
 		if (outputPath) {
 			return writeFile(outputPath, code).then(() => code)
@@ -37,11 +43,11 @@ module.exports = function globModuleFile({
 }
 
 const formats = {
-	cjs(fileNamesAndIdentifiers, pathPrefix) {
+	cjs({ fileNamesAndIdentifiers, pathPrefix, exportLineFormat }) {
 		const outputLines = fileNamesAndIdentifiers.map(({ file, identifier }) => {
 			return {
 				requireLine: `const ${identifier} = require('${pathPrefix}${file}')`,
-				exportLine: `\t${identifier}`
+				exportLine: exportLineFormat({ file, identifier, pathPrefix }),
 			}
 		})
 
@@ -55,11 +61,11 @@ ${exported}
 ]
 `
 	},
-	es(fileNamesAndIdentifiers, pathPrefix) {
+	es({ fileNamesAndIdentifiers, pathPrefix, exportLineFormat }) {
 		const outputLines = fileNamesAndIdentifiers.map(({ file, identifier }) => {
 			return {
 				requireLine: `import ${identifier} from '${pathPrefix}${file}'`,
-				exportLine: `\t${identifier}`
+				exportLine: exportLineFormat({ file, identifier, pathPrefix }),
 			}
 		})
 
@@ -72,5 +78,13 @@ export default [
 ${exported}
 ]
 `
-	}
+	},
+}
+
+function defaultExportObjectFormat({ file, identifier, pathPrefix }) {
+	return `\t${identifier}`
+}
+
+function exportWithPathObjectFormat({ file, identifier, pathPrefix }) {
+	return `\t{ path: '${escapeSingleQuotes(file)}', export: ${identifier} }`
 }

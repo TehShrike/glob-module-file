@@ -97,12 +97,46 @@ test(`Node can actually import the CommonJS output`, t => {
 	return globModuleFile({
 		pattern: 'fixtures/**/*.js',
 		outputPath: tmp,
-		pathPrefix: process.cwd() + '/'
+		pathPrefix: process.cwd() + '/',
 	}).then(code => {
-
 		const moduleArray = require(tmp)
 
 		t.is(moduleArray[0], 1)
 		t.is(moduleArray[1], 2)
+	})
+})
+
+test(`Export with path (cjs)`, t => {
+	const expected = `const fixtures$47$one$46$js = require('./fixtures/one.js')
+const fixtures$47$someDirectory$47$two$46$js = require('./fixtures/someDirectory/two.js')
+
+module.exports = [
+	{ path: 'fixtures/one.js', export: fixtures$47$one$46$js },
+	{ path: 'fixtures/someDirectory/two.js', export: fixtures$47$someDirectory$47$two$46$js }
+]
+`
+	return globModuleFile({
+		pattern: 'fixtures/**/*.js',
+		exportWithPath: true,
+	}).then(code => {
+		t.is(code, expected)
+	})
+})
+
+test(`Export with path (esm)`, t => {
+	const expected = `import fixtures$47$one$46$js from './fixtures/one.js'
+import fixtures$47$someDirectory$47$two$46$js from './fixtures/someDirectory/two.js'
+
+export default [
+	{ path: 'fixtures/one.js', export: fixtures$47$one$46$js },
+	{ path: 'fixtures/someDirectory/two.js', export: fixtures$47$someDirectory$47$two$46$js }
+]
+`
+	return globModuleFile({
+		pattern: 'fixtures/**/*.js',
+		exportWithPath: true,
+		format: 'es',
+	}).then(code => {
+		t.is(code, expected)
 	})
 })
