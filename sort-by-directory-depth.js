@@ -1,5 +1,3 @@
-const combine = require('combine-arrays')
-
 module.exports = function sortByDirectoryDepth(a, b) {
 	const chunksA = a.split('/')
 	const chunksB = b.split('/')
