@@ -1,6 +1,6 @@
 {
   "name": "glob-module-file",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Generate a file of code that imports/requires a bunch of files, and exports them as an array",
   "main": "index.js",
   "bin": "./bin.js",
