@@ -6,16 +6,7 @@ module.exports = function sortByDirectoryDepth(a, b) {
 	const comparison = chunksA.length - chunksB.length
 
 	if (comparison === 0) {
-		return combine({
-			a: chunksA,
-			b: chunksB
-		}).reduce((lastComparison, { a, b }) => {
-			if (lastComparison !== 0) {
-				return lastComparison
-			}
-
-			return alphabeticCompare(a, b)
-		}, 0)
+		return alphabeticCompare(a, b)
 	}
 
 	return comparison
