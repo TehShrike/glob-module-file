@@ -14,6 +14,7 @@ module.exports = function globModuleFile({
 	exportWithPath = false,
 	pattern,
 	outputPath,
+	importStar,
 }, globOptions) {
 	if (!formats.hasOwnProperty(format)) {
 		throw new Error(`Invalid format ${format}`)
@@ -32,7 +33,7 @@ module.exports = function globModuleFile({
 			identifier: sortedFiles.map(toIdentifier),
 		})
 
-		const code = outputFormat({ fileNamesAndIdentifiers, pathPrefix, exportLineFormat })
+		const code = outputFormat({ fileNamesAndIdentifiers, pathPrefix, exportLineFormat, importStar })
 
 		if (outputPath) {
 			return writeFile(outputPath, code).then(() => code)
@@ -61,10 +62,10 @@ ${exported}
 ]
 `
 	},
-	es({ fileNamesAndIdentifiers, pathPrefix, exportLineFormat }) {
+	es({ fileNamesAndIdentifiers, pathPrefix, exportLineFormat, importStar }) {
 		const outputLines = fileNamesAndIdentifiers.map(({ file, identifier }) => {
 			return {
-				requireLine: `import ${identifier} from '${pathPrefix}${file}'`,
+				requireLine: `import ${importStar ? '* as ' : ''}${identifier} from '${pathPrefix}${file}'`,
 				exportLine: exportLineFormat({ file, identifier, pathPrefix }),
 			}
 		})

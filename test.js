@@ -140,3 +140,23 @@ export default [
 		t.is(code, expected)
 	})
 })
+
+test(`Import *`, t => {
+	const expected = `import * as fixtures$47$one$46$js from './fixtures/one.js'
+import * as fixtures$47$someDirectory$47$two$46$js from './fixtures/someDirectory/two.js'
+
+export default [
+	{ path: 'fixtures/one.js', export: fixtures$47$one$46$js },
+	{ path: 'fixtures/someDirectory/two.js', export: fixtures$47$someDirectory$47$two$46$js }
+]
+`
+
+	return globModuleFile({
+		pattern: 'fixtures/**/*.js',
+		exportWithPath: true,
+		format: 'es',
+		importStar: true,
+	}).then(code => {
+		t.is(code, expected)
+	})
+})
