@@ -31,8 +31,8 @@
   },
   "homepage": "https://github.com/TehShrike/glob-module-file#readme",
   "devDependencies": {
-    "ava": "0.18.2",
-    "jsmd": "0.3.1",
+    "ava": "^2.1.0",
+    "jsmd": "^1.0.1",
     "tempfile": "1.1.1"
   },
   "dependencies": {
