@@ -6,7 +6,7 @@ Pass in a file pattern and an output path, and a file will be created that impor
 
 It's really nice to be able to auto-initialize a whole bunch of parts of your application, without having to maintain a list of modules to require in your index.js:
 
-```
+```node
 // Maintaining this is inconvenient
 const coolService = require('./service/cool/the-coolest.js')
 const niftyService = require('./service/nifty/nearly-as-cool.js')
@@ -19,7 +19,7 @@ yetAnotherService(initialConfig)
 
 To avoid dealing with such ever-growing lists of modules, I've used this pattern in node.js code:
 
-```
+```node
 glob.sync('service/**/*.js', { ignore: 'service/**/*.test.js' })
 .map(file => require(`./${file}`))
 .forEach(moduleFunction => {
@@ -48,7 +48,7 @@ fixtures/someDirectory/two.js
 
 Calling this library and passing in `fixtures/**/*.js` and `my-globbed-files.js` will cause it to spit out a file containing:
 
-```
+```node
 const fixtures$47$one$46$js = require('./fixtures/one.js')
 const fixtures$47$someDirectory$47$two$46$js = require('./fixtures/someDirectory/two.js')
 
@@ -60,7 +60,7 @@ module.exports = [
 
 or, for es6 module bundlers:
 
-```
+```node
 import fixtures$47$one$46$js from './fixtures/one.js'
 import fixtures$47$someDirectory$47$two$46$js from './fixtures/someDirectory/two.js'
 
@@ -72,7 +72,7 @@ export default [
 
 Then, all your index file needs to do is
 
-```
+```node
 require('my-globbed-files.js').forEach(moduleFunction => {
 	moduleFunction(initialConfig)
 })
