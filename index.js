@@ -5,7 +5,7 @@ const toIdentifier = require('to-js-identifier')
 const combine = require('combine-arrays')
 
 const sortByDirectoryDepth = require('./sort-by-directory-depth')
-const escapeSingleQuotes = str => str.replace(`'`, () => `\\'`)
+const escapeSingleQuotes = str => str.replace(/'/g, `\\'`)
 
 module.exports = function globModuleFile({
 	format = 'cjs',
