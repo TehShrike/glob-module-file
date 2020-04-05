@@ -38,7 +38,7 @@
   "dependencies": {
     "combine-arrays": "1.0.2",
     "glob": "7.1.1",
-    "minimist": "1.2.0",
+    "minimist": "^1.2.5",
     "then-denodeify": "1.0.1",
     "to-js-identifier": "1.0.0"
   }

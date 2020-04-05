@@ -1,3 +1,7 @@
+# [3.0.1](https://github.com/TehShrike/glob-module-file/releases/tag/v3.0.1)
+
+- bump `minimist` dependency version
+
 # [3.0.0](https://github.com/TehShrike/glob-module-file/releases/tag/v3.0.0)
 
 - changed: if an `outputPath` is provided to the CLI, the code will not be written to stdout
