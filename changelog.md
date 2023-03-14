@@ -1,4 +1,4 @@
-# [3.1.0](https://github.com/TehShrike/glob-module-file/releases/tag/v3.1.0)
+# [3.2.0](https://github.com/TehShrike/glob-module-file/releases/tag/v3.2.0)
 
 - add a trailing comma to the array
 
