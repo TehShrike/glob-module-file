@@ -54,7 +54,7 @@ const fixtures$47$someDirectory$47$two$46$js = require('./fixtures/someDirectory
 
 module.exports = [
 	fixtures$47$one$46$js,
-	fixtures$47$someDirectory$47$two$46$js
+	fixtures$47$someDirectory$47$two$46$js,
 ]
 ```
 
@@ -66,7 +66,7 @@ import fixtures$47$someDirectory$47$two$46$js from './fixtures/someDirectory/two
 
 export default [
 	fixtures$47$one$46$js,
-	fixtures$47$someDirectory$47$two$46$js
+	fixtures$47$someDirectory$47$two$46$js,
 ]
 ```
 
@@ -112,7 +112,7 @@ const fixtures$47$someDirectory$47$two$46$js = require('./fixtures/someDirectory
 
 module.exports = [
 \tfixtures$47$one$46$js,
-\tfixtures$47$someDirectory$47$two$46$js
+\tfixtures$47$someDirectory$47$two$46$js,
 ]
 `
 

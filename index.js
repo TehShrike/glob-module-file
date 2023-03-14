@@ -1,16 +1,16 @@
-const denodeify = require('then-denodeify')
-const writeFile = denodeify(require('fs').writeFile)
-const glob = denodeify(require('glob'))
-const toIdentifier = require('to-js-identifier')
-const combine = require('combine-arrays')
+const denodeify = require(`then-denodeify`)
+const writeFile = denodeify(require(`fs`).writeFile)
+const glob = denodeify(require(`glob`))
+const toIdentifier = require(`to-js-identifier`)
+const combine = require(`combine-arrays`)
 
-const sortByDirectoryDepth = require('./sort-by-directory-depth')
+const sortByDirectoryDepth = require(`./sort-by-directory-depth`)
 const escapeSingleQuotes = str => str.replace(/'/g, `\\'`)
 
 module.exports = function globModuleFile({
-	format = 'cjs',
+	format = `cjs`,
 	sortFunction = sortByDirectoryDepth,
-	pathPrefix = './',
+	pathPrefix = `./`,
 	exportWithPath = false,
 	pattern,
 	outputPath,
@@ -45,47 +45,43 @@ module.exports = function globModuleFile({
 
 const formats = {
 	cjs({ fileNamesAndIdentifiers, pathPrefix, exportLineFormat }) {
-		const outputLines = fileNamesAndIdentifiers.map(({ file, identifier }) => {
-			return {
-				requireLine: `const ${identifier} = require('${pathPrefix}${file}')`,
-				exportLine: exportLineFormat({ file, identifier, pathPrefix }),
-			}
-		})
+		const outputLines = fileNamesAndIdentifiers.map(({ file, identifier }) => ({
+			requireLine: `const ${identifier} = require('${pathPrefix}${file}')`,
+			exportLine: exportLineFormat({ file, identifier, pathPrefix }),
+		}))
 
-		const requires = outputLines.map(({ requireLine }) => requireLine).join('\n')
-		const exported = outputLines.map(({ exportLine }) => exportLine).join(',\n')
+		const requires = outputLines.map(({ requireLine }) => requireLine).join(`\n`)
+		const exported = outputLines.map(({ exportLine }) => exportLine).join(`,\n`)
 
 		return `${requires}
 
 module.exports = [
-${exported}
+${exported},
 ]
 `
 	},
 	es({ fileNamesAndIdentifiers, pathPrefix, exportLineFormat, importStar }) {
-		const outputLines = fileNamesAndIdentifiers.map(({ file, identifier }) => {
-			return {
-				requireLine: `import ${importStar ? '* as ' : ''}${identifier} from '${pathPrefix}${file}'`,
-				exportLine: exportLineFormat({ file, identifier, pathPrefix }),
-			}
-		})
+		const outputLines = fileNamesAndIdentifiers.map(({ file, identifier }) => ({
+			requireLine: `import ${importStar ? `* as ` : ``}${identifier} from '${pathPrefix}${file}'`,
+			exportLine: exportLineFormat({ file, identifier, pathPrefix }),
+		}))
 
-		const requires = outputLines.map(({ requireLine }) => requireLine).join('\n')
-		const exported = outputLines.map(({ exportLine }) => exportLine).join(',\n')
+		const requires = outputLines.map(({ requireLine }) => requireLine).join(`\n`)
+		const exported = outputLines.map(({ exportLine }) => exportLine).join(`,\n`)
 
 		return `${requires}
 
 export default [
-${exported}
+${exported},
 ]
 `
 	},
 }
 
-function defaultExportObjectFormat({ file, identifier, pathPrefix }) {
+function defaultExportObjectFormat({ _file, identifier, _pathPrefix }) {
 	return `\t${identifier}`
 }
 
-function exportWithPathObjectFormat({ file, identifier, pathPrefix }) {
+function exportWithPathObjectFormat({ file, identifier, _pathPrefix }) {
 	return `\t{ path: '${escapeSingleQuotes(file)}', export: ${identifier} }`
 }
