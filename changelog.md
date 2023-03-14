@@ -1,3 +1,7 @@
+# [3.1.0](https://github.com/TehShrike/glob-module-file/releases/tag/v3.1.0)
+
+- add a trailing comma to the array
+
 # [3.0.1](https://github.com/TehShrike/glob-module-file/releases/tag/v3.0.1)
 
 - bump `minimist` dependency version
